@@ -22,18 +22,22 @@ const MenuComponent = () => {
       };
     
       return (
-        <Suspense>
+        <div>
         <Button variant="contained" onClick={() => setOpen(true)}>
           <Avatar src={`/${contact}.png`}></Avatar>
         </Button>
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Conversation with {contact}</DialogTitle>
-            <DialogContent><ChatComponent role={role as string}/></DialogContent>
+            <DialogContent>
+              <Suspense>
+                <ChatComponent role={role as string}/>                
+              </Suspense>
+            </DialogContent>
         </Dialog>
         <Button variant="contained" onClick={() => router.back()} sx={{ position: 'absolute', top: 10, right: 10, color: 'white', backgroundColor: 'red' }}>
           <ArrowBackIcon></ArrowBackIcon>
         </Button>
-        </Suspense>
+        </div>
       );
 };
 
@@ -61,7 +65,6 @@ const ChatComponent =({ role }: { role: string })=> {
     }
   }, [messages]);
   return (
-    <Suspense>
     <Container maxWidth="sm">
       <Box sx={{ bgcolor: '#cfe8fc', border: '1px solid #ccc', borderRadius: '10px'}}> 
       <div style={{ height: '400px', overflowY: 'scroll',  }} className="messages">
@@ -85,7 +88,6 @@ const ChatComponent =({ role }: { role: string })=> {
         <Button variant="contained" onClick={handleSendMessage}>Send</Button>
       </div>
       </Container>
-      </Suspense>
   );
 
  
