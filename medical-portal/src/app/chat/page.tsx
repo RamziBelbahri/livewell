@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Message } from '../lib/messages';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -22,7 +22,7 @@ const MenuComponent = () => {
       };
     
       return (
-        <div>
+        <Suspense>
         <Button variant="contained" onClick={() => setOpen(true)}>
           <Avatar src={`/${contact}.png`}></Avatar>
         </Button>
@@ -33,7 +33,7 @@ const MenuComponent = () => {
         <Button variant="contained" onClick={() => router.back()} sx={{ position: 'absolute', top: 10, right: 10, color: 'white', backgroundColor: 'red' }}>
           <ArrowBackIcon></ArrowBackIcon>
         </Button>
-        </div>
+        </Suspense>
       );
 };
 
