@@ -38,3 +38,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <a href="https://www.flaticon.com/free-icons/patient" title="patient icons">Patient icons created by Freepik - Flaticon</a>
 
 <a href="https://www.flaticon.com/free-icons/doctor" title="doctor icons">Doctor icons created by Freepik - Flaticon</a>
+
+<a href="https://www.flaticon.com/free-icons/health" title="health icons">Health icons created by Freepik - Flaticon</a>

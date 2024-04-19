@@ -6,9 +6,38 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
-import { Avatar } from '@mui/material';
+import { Avatar, Dialog, DialogContent, DialogTitle, Icon } from '@mui/material';
+import { useRouter, useSearchParams } from 'next/navigation';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const ChatComponent = () => {
+const MenuComponent = () => {
+    const [open, setOpen] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const role = searchParams.get('role');
+    const contact = role === 'Patient' ? 'doctor' : 'patient'
+
+    const handleClose = () => {
+        setOpen(false);
+      };
+    
+      return (
+        <div>
+        <Button variant="contained" onClick={() => setOpen(true)}>
+          <Avatar src={`/${contact}.png`}></Avatar>
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Conversation with {contact}</DialogTitle>
+            <DialogContent><ChatComponent role={role as string}/></DialogContent>
+        </Dialog>
+        <Button variant="contained" onClick={() => router.back()} sx={{ position: 'absolute', top: 10, right: 10, color: 'white', backgroundColor: 'red' }}>
+          <ArrowBackIcon></ArrowBackIcon>
+        </Button>
+        </div>
+      );
+};
+
+const ChatComponent =({ role }: { role: string })=> {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -34,12 +63,12 @@ const ChatComponent = () => {
   return (
     <Container maxWidth="sm">
       <Box sx={{ bgcolor: '#cfe8fc', border: '1px solid #ccc', borderRadius: '10px'}}> 
-      <div style={{ height: '500px', overflowY: 'scroll',  }} className="messages">
+      <div style={{ height: '400px', overflowY: 'scroll',  }} className="messages">
         {messages.map((message, index) => (
           <div key={index} className="message"> 
                     {/* {message.userName}
                     : {message.content}       */}
-                    <Chip label={message.content} avatar={<Avatar alt={message.userName} src="/patient.png" />} />
+                    <Chip label={message.content} avatar={<Avatar alt={role} src={`/${role}.png`} />} />
           </div>
         ))}
       <div ref={messagesEndRef}></div>
@@ -53,7 +82,6 @@ const ChatComponent = () => {
           onChange={handleInputChange}
         />
         <Button variant="contained" onClick={handleSendMessage}>Send</Button>
-        <Button variant="contained" onClick={handleSendMessage}>Start new conversation</Button>
       </div>
       </Container>
   );
@@ -61,4 +89,4 @@ const ChatComponent = () => {
  
 };
 
-export default ChatComponent;
+export default MenuComponent;
