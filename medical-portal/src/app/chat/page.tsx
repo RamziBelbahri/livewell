@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Message } from '../lib/messages';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -29,9 +29,7 @@ const MenuComponent = () => {
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Conversation with {contact}</DialogTitle>
             <DialogContent>
-              <Suspense fallback={<>Loading...</>}>
                 <ChatComponent role={role as string}/>                
-              </Suspense>
             </DialogContent>
         </Dialog>
         <Button variant="contained" onClick={() => router.back()} sx={{ position: 'absolute', top: 10, right: 10, color: 'white', backgroundColor: 'red' }}>
