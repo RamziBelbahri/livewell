@@ -21,6 +21,7 @@ const MenuComponent = () => {
         setOpen(false);
       };
     
+
       return (
         <div>
         <Button variant="contained" onClick={() => setOpen(true)}>
@@ -39,21 +40,45 @@ const MenuComponent = () => {
       );
 };
 
-const ChatComponent =({ role }: { role: string })=> {
+
+const getMessages = async () => {
+  try {
+    const response = await fetch('/api/get-messages'); // This corresponds to pages/api/data.js in Next.js
+    const jsonData = await response.json();
+    console.log("data: ", jsonData);
+    return jsonData.rows;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+const addMessage = async (message: Message) => {
+  try {
+    const response = await fetch(`/api/add-message?userName=${message.userName}&content=${message.content}`); // This corresponds to pages/api/data.js in Next.js
+    const jsonData = await response.json();
+    console.log("data: ", jsonData);
+    return jsonData.rows;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+const ChatComponent =  ({ role }: { role: string })=> {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
 
   const handleInputChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setInputValue(e.target.value);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () =>  {
     if (inputValue.trim() !== '') {
-      const newMessage: Message = { userName: 'Patient', content: inputValue, time: new Date().getDate() };
+      const newMessage: Message = {userName: role, content: inputValue}
+      // await addMessage(message);
       setMessages([...messages, newMessage]);
       setInputValue('');
-      // Here you would send the message to your backend or external service
     }
   };
 
@@ -68,9 +93,7 @@ const ChatComponent =({ role }: { role: string })=> {
       <div style={{ height: '400px', overflowY: 'scroll',  }} className="messages">
         {messages.map((message, index) => (
           <div key={index} className="message"> 
-                    {/* {message.userName}
-                    : {message.content}       */}
-                    <Chip label={message.content} avatar={<Avatar alt={role} src={`/${role}.png`} />} />
+                    <Chip label={message.content} avatar={<Avatar alt={message.userName} src={`/${role}.png`} />} />
           </div>
         ))}
       <div ref={messagesEndRef}></div>

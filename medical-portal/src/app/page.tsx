@@ -34,7 +34,7 @@ export default function Home() {
 
       <div className="mb-32 grid text-center lg:mb-0 lg:max-w-5xl lg:grid-cols-40 lg:grid-auto-rows lg:grid-auto-flow lg:gap-4 lg:text-left">
         <Link
-          href={`/chat?role=${PATIENTROLE}`}
+          href={`/menu?role=${PATIENTROLE}`}
           className="group rounded-lg border border-transparent bg-white px-5 py-4 hover:border-gray-300  hover:dark:border-neutral-700 hover:dark:bg-neutral-300">
           <h2 className="mb-3 text-2xl font-semibold">
             Patient{" "}
@@ -45,7 +45,7 @@ export default function Home() {
         </Link>
 
         <Link
-          href={`/chat?role=${DOCTORROLE}`}
+          href={`/menu?role=${DOCTORROLE}`}
           className="group rounded-lg border border-transparent bg-white px-5 py-4 hover:border-gray-300  hover:dark:border-neutral-700 hover:dark:bg-neutral-300">
           <h2 className="mb-3 text-2xl font-semibold">
             Doctor{" "}
