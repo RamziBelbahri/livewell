@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import { Avatar, Dialog, DialogContent, DialogTitle, Icon } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams, } from 'next/navigation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const MenuComponent = () => {
@@ -61,6 +61,7 @@ const ChatComponent =({ role }: { role: string })=> {
     }
   }, [messages]);
   return (
+    <Suspense>
     <Container maxWidth="sm">
       <Box sx={{ bgcolor: '#cfe8fc', border: '1px solid #ccc', borderRadius: '10px'}}> 
       <div style={{ height: '400px', overflowY: 'scroll',  }} className="messages">
@@ -84,6 +85,7 @@ const ChatComponent =({ role }: { role: string })=> {
         <Button variant="contained" onClick={handleSendMessage}>Send</Button>
       </div>
       </Container>
+      </Suspense>
   );
 
  
