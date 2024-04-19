@@ -29,7 +29,7 @@ const MenuComponent = () => {
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Conversation with {contact}</DialogTitle>
             <DialogContent>
-              <Suspense>
+              <Suspense fallback={<>Loading...</>}>
                 <ChatComponent role={role as string}/>                
               </Suspense>
             </DialogContent>
