@@ -76,8 +76,8 @@ const ChatComponent =  ({ role }: { role: string })=> {
   const handleSendMessage = async () =>  {
     if (inputValue.trim() !== '') {
       const newMessage: Message = {userName: role, content: inputValue}
-      // await addMessage(message);
-      setMessages([...messages, newMessage]);
+      await addMessage(newMessage);
+      setMessages(await getMessages());
       setInputValue('');
     }
   };

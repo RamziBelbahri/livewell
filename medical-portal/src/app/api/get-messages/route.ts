@@ -1,8 +1,7 @@
 import { sql } from '@vercel/postgres';
-import { Request, Response } from 'express';
 import { NextResponse } from 'next/server';
  
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const result =
       await sql`SELECT * FROM MESSAGES;`;
