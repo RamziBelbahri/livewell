@@ -7,6 +7,7 @@ export async function GET() {
   try {
     const result =
       await sql`SELECT * FROM MESSAGES;`;
+    console.log(result);
     return NextResponse.json({ result }, {  status: 200, headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
