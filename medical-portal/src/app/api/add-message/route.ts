@@ -1,7 +1,10 @@
+
 import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
- 
+import { unstable_noStore as noStore } from 'next/cache';
+
 export async function GET(request: Request) {
+  // noStore();
   const { searchParams } = new URL(request.url);
   const userName = searchParams.get('userName');
   const content = searchParams.get('content');
@@ -13,6 +16,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ error }, { status: 500 });
   }
  
-  const pets = await sql`SELECT * FROM MESSAGES;`;
-  return NextResponse.json({ pets }, { status: 200 });
+  const messages = await sql`SELECT * FROM MESSAGES;`;
+  return NextResponse.json({ messages }, { status: 200, headers: { 'Cache-Control': 'no-store' } } );
 }
